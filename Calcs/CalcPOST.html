@@ -1,0 +1,32 @@
+<h1>Calculate</h1>
+<form name="form">
+	<input type="number" name="xField" style="width:45px">
+	<input type="text" name="opField" style="width:18px">
+	<input type="number" name="yField" style="width:45px">
+	= <input type="text" name="resField" width="20" disabled>
+	<p><input type="button" onclick="showResult()" name="bCalc" value="calculate"></p>
+</form>
+
+<script>
+function showResult()
+{
+	var x = form.xField.value;
+	var y = form.yField.value;
+	var op = form.opField.value;
+	var res = calcN(Number(x),Number(y),op);
+	form.resField.value = res;
+}
+
+function calcN( a, b, op )
+{
+	if(op == '+')
+		op = 'p';
+	
+	var param = "num1="+a+"&num2="+b+"&opr="+op;
+	var rr = new XMLHttpRequest();
+	rr.open('POST', 'http://localhost:5000', false);
+	rr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	rr.send(param);
+	return rr.responseText;
+}
+</script>
